@@ -20,7 +20,7 @@ function Navbar() {
     }
   };
    useEffect(() => {
-    loadUnreadCount();
+    loadCount();
 
     // Refresh every 30 seconds
     const interval = setInterval(loadUnreadCount, 30000);
