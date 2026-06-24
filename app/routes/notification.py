@@ -1,9 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 from app.database import get_db
 from app.auth import get_current_user
 from app.models.user import User
+from app.models.notification import Notification
 from app.crud.notification import (
     get_notifications,
     mark_as_read,
@@ -22,6 +24,23 @@ def read_notifications(
     current_user: User = Depends(get_current_user),
 ):
     return get_notifications(db, current_user.id)
+
+
+@router.get("/unread-count")
+def unread_count(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    count = (
+        db.query(func.count(Notification.id))
+        .filter(
+            Notification.user_id == current_user.id,
+            Notification.is_read == False,
+        )
+        .scalar()
+    )
+
+    return {"count": count}
 
 
 @router.patch("/{notification_id}/read")
