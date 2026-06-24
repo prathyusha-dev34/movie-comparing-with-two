@@ -19,6 +19,7 @@ import AdminUsers from "./pages/AdminUsers";
 import AdminReviews from "./pages/AdminReviews";
 import Collections from "./pages/Collections";
 import CollectionDetails from "./pages/CollectionDetails";
+import Notifications from "./pages/Notifications";
 
 // Route Guards
 import ProtectedRoute from "./router";
@@ -136,6 +137,9 @@ function App() {
         {/* Redirect Unknown Routes */}
         <Route path="*" element={<Navigate to="/" replace />} />
 
+<Route path="/notifications" element={<Notifications />} />
+
+<Route path="/notifications" element={<Notifications />} />
       </Routes>
     </BrowserRouter>
   );

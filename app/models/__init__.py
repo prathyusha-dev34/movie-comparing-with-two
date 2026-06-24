@@ -6,3 +6,4 @@ from .user_preference import UserPreference
 from .review import Review
 from .collection import Collection, CollectionMovie
 from .watchlist import Watchlist
+from .notification import Notification

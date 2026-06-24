@@ -5,8 +5,10 @@ from sqlalchemy import false
 from app.database import Base, engine
 from app import models
 
-# Import Collection models so SQLAlchemy creates the tables
+# Import models so SQLAlchemy creates the tables
 from app.models.collection import Collection, CollectionMovie
+from app.models.notification import Notification
+from app.models.review_like import ReviewLike
 
 # =========================
 # IMPORT ROUTES
@@ -22,6 +24,8 @@ from app.routes import (
     reviews,
     profile,
     collections,
+    notification,
+    reviews,
 )
 
 # =========================
@@ -44,10 +48,10 @@ app = FastAPI(title="Movie Backend API")
 # =========================
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = [
-    "*"
-],
-    allow_credentials=false,
+    allow_origins=[
+        "*"
+    ],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -65,6 +69,7 @@ app.include_router(watchlist.router)
 app.include_router(reviews.router)
 app.include_router(profile.router)
 app.include_router(collections.router)
+app.include_router(notification.router)
 
 # =========================
 # ADMIN ROUTES
