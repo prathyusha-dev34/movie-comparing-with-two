@@ -1,50 +1,48 @@
 import React from "react";
+import "./NotificationCard.css";
 
 function NotificationCard({
   notification,
   onRead,
-  onDelete
+  onDelete,
 }) {
   return (
     <div
-      style={{
-        border: "1px solid #ccc",
-        padding: 15,
-        marginBottom: 10,
-        borderRadius: 10,
-        background: notification.is_read
-          ? "#f8f8f8"
-          : "#e8f5ff"
-      }}
+      className={`notification-card ${
+        notification.is_read ? "read" : ""
+      }`}
     >
-      <h4>{notification.message}</h4>
+      <div className="notification-content">
+        <h4>{notification.message}</h4>
 
-      <p>
-        Type:
-        {" "}
-        {notification.notification_type}
-      </p>
+        <div className="notification-type">
+          {notification.notification_type}
+        </div>
 
-      <p>
-        {new Date(notification.created_at).toLocaleString()}
-      </p>
+        <div className="notification-date">
+          {new Date(
+            notification.created_at
+          ).toLocaleString()}
+        </div>
+      </div>
 
-      {!notification.is_read && (
-        <button onClick={() => onRead(notification.id)}>
-          Mark as Read
+      <div className="notification-actions">
+        {!notification.is_read && (
+          <button
+            className="read-btn"
+            onClick={() => onRead(notification.id)}
+          >
+            ✓ Read
+          </button>
+        )}
+
+        <button
+          className="delete-btn"
+          onClick={() => onDelete(notification.id)}
+        >
+          🗑 Delete
         </button>
-      )}
-
-      <button
-        onClick={() => onDelete(notification.id)}
-        style={{
-          marginLeft: 10,
-          background: "red",
-          color: "white"
-        }}
-      >
-        Delete
-      </button>
+      </div>
     </div>
   );
 }
